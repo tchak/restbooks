@@ -1,0 +1,24 @@
+INSTALL :
+
+gem install tchak-restbooks
+
+HOWTO :
+
+client = RestBooks::Client.new( :log => 'stdout' )
+Or
+client = RestBooks::Client.new( { :user => 'toto', :password => 'secret' } )
+
+m_books = client.books.all
+m_authors = client.authors.all( { :letter => 'A' } )
+m_authors = client.authors.all( { :page => 2 } )
+
+m_author = client.authors.top.first
+m_book = client.authors.books( my_author )
+p m_book.title
+p m_book.description
+
+m_comments = client.books.comments( my_book )
+m_comments.each do |comment|
+  p comment.title
+  p comment.body
+end

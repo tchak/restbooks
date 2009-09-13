@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.description = %q{Restbooks is a client library for feedbooks.com api.}
   s.email = %q{paul@chavard.net}
   s.homepage = %q{http://restbooks.tchak.net}
-  s.require_paths = ["restbooks"]
-  s.files = ["README", "LICENSE", "restbooks.rb", "restbooks/books.rb", "restbooks/authors.rb", "restbooks/categories.rb", "restbooks/lists.rb", "restbooks/extend/uri.rb", "restbooks/mixins/api.rb", "restbooks/mixins/model.rb", "restbooks/models/author.rb", "restbooks/models/book.rb", "restbooks/models/category.rb", "restbooks/models/comment.rb", "restbooks/models/list.rb"]
+  s.require_paths = ["lib"]
+  s.files = ["README", "LICENSE", "restbooks.rb", "lib/books.rb", "lib/authors.rb", "lib/categories.rb", "lib/lists.rb", "lib/extend/uri.rb", "lib/mixins/api.rb", "lib/mixins/model.rb", "lib/models/author.rb", "lib/models/book.rb", "lib/models/category.rb", "lib/models/comment.rb", "lib/models/list.rb"]
   #s.has_rdoc = true
   #s.extra_rdoc_files = ["README", "LICENSE"]
   #s.rdoc_options = ["--inline-source", "--charset=UTF-8"]

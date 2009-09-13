@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{restbooks}
-  s.version = "0.1.2"
+  s.version = "0.1.3"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Paul Chavard"]
   s.date = %q{2009-09-12}
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = %q{paul@chavard.net}
   s.homepage = %q{http://restbooks.tchak.net}
   s.require_paths = ["lib"]
-  s.files = ["README", "LICENSE", "restbooks.rb", "lib/books.rb", "lib/authors.rb", "lib/categories.rb", "lib/lists.rb", "lib/extend/uri.rb", "lib/mixins/api.rb", "lib/mixins/model.rb", "lib/models/author.rb", "lib/models/book.rb", "lib/models/category.rb", "lib/models/comment.rb", "lib/models/list.rb"]
+  s.files = ["README", "LICENSE", "lib/restbooks.rb", "lib/restbooks/books.rb", "lib/restbooks/authors.rb", "lib/restbooks/categories.rb", "lib/restbooks/lists.rb", "lib/uri/uri.rb", "lib/restbooks/mixins/api.rb", "lib/restbooks/mixins/model.rb", "lib/restbooks/models/author.rb", "lib/restbooks/models/book.rb", "lib/restbooks/models/category.rb", "lib/restbooks/models/comment.rb", "lib/restbooks/models/list.rb"]
   #s.has_rdoc = true
   #s.extra_rdoc_files = ["README", "LICENSE"]
   #s.rdoc_options = ["--inline-source", "--charset=UTF-8"]

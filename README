@@ -4,6 +4,8 @@ gem install tchak-restbooks
 
 HOWTO :
 
+require "restbooks"
+
 client = RestBooks::Client.new( :log => 'stdout' )
 Or
 client = RestBooks::Client.new( { :user => 'toto', :password => 'secret' } )

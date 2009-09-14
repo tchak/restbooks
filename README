@@ -1,6 +1,20 @@
+WARNING !
+I will not guaranty API consistency until 0.5 release!
+
+Main Features :
+- API mapping for "books", "authors", "lists" and "categories" using atom format
+- ETag support (the same instance fetch only ones)
+
+Roadmap :
+- Atom pub
+- User Books API
+
 INSTALL :
 
 gem install tchak-restbooks
+
+DOC :
+http://restbooks.tchak.net
 
 HOWTO :
 

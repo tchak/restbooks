@@ -77,6 +77,8 @@ module RestBooks
         return process_atom_responce( type, data )
       # when :json
       #   #return JSON.parse( data )
+      else
+        return data
       end
     end
     

@@ -63,30 +63,6 @@ module RestBooks
         end
       end
 
-      # def language=( str )
-      #   @language = str
-      #   @element.elements['dc:language'].text = str
-      # end
-      # 
-      # def date=( str )
-      #   @date = str
-      #   @element.elements['dc:date'].text = str
-      # end
-      # 
-      # def subject=( str )
-      #   
-      # end
-      # 
-      # def description=( str )
-      #   @description = str
-      #   @element.elements['dc:description'].text = str
-      # end
-      # 
-      # def rights=( str )
-      #   @rights = str
-      #   @element.elements['dc:rights'].text = str
-      # end
-
       def to_html
         return @html
       end

@@ -24,11 +24,6 @@
 module RestBooks
   module Model
 
-    # def title=( str )
-    #   @title = str
-    #   @element.elements['title'].text = str
-    # end
-
     def to_s
       return @element.to_s
     end

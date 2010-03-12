@@ -45,36 +45,37 @@ module RestBooks
       options_str = []
       options.each do |key,value|
         if key == :format
-          format = options.delete( :format )
+          format = options.delete(:format)
         elsif !valid_keys.include?(key)
-          options.delete( key )
+          options.delete(key)
         else
           options_str << "#{key.to_s}=#{value}"
         end
       end
-      options = ( options_str.length > 0 ? options_str.join('&') : nil )
+      options = (options_str.length > 0 ? options_str.join('&') : nil)
       @uri.path = "#{path}.#{format.to_s}"
       @uri.query = options
     end
     
-    def do_request( type, format = :atom )
-      etag, saved_data = get_etag( @uri.to_s )
+    def do_request(type, format = :atom)
+      etag, saved_data = get_etag(@uri.to_s)
       if etag
         begin
-          data = RestClient.get( @uri.to_s, { 'If-None-Match' => etag, 'User-Agent' => @user_agent } )
+          data = RestClient.get(@uri.to_s, {'If-None-Match' => etag, 'User-Agent' => @user_agent})
           etag = data.headers[:etag]
-          save_etag( @uri.to_s, etag, data )
+          update_etag(@uri.to_s, etag, data.body)
         rescue RestClient::NotModified
           data = saved_data
         end
       else
-        data = RestClient.get( @uri.to_s, { 'User-Agent' => @user_agent } )
+        data = RestClient.get(@uri.to_s, {'User-Agent' => @user_agent})
         etag = data.headers[:etag]
-        save_etag( @uri.to_s, etag, data )
+        save_etag(@uri.to_s, etag, data.body)
       end
+      
       case format
       when :atom
-        return process_atom_responce( type, data )
+        return process_atom_responce(type, data.body)
       # when :json
       #   #return JSON.parse( data )
       else
@@ -82,45 +83,40 @@ module RestBooks
       end
     end
     
-    def process_atom_responce( type, responce )
+    def process_atom_responce(type, response)
       result = []
-      doc = REXML::Document.new( responce )
-      REXML::XPath.each( doc, '//entry' ) do |element|
-        result << eval( "Models::#{type.to_s.capitalize}.new( element )" )
+      Nokogiri::XML::Document.parse(response).css('entry').each do |element|
+        result << eval("Models::#{type.to_s.capitalize}.new(element)")
       end
       return result
     end
     
-    def get_etag( path )
-      arr = @etags.assoc( path )
+    def get_etag(path)
+      arr = @etags.assoc(path)
       etag = data = nil
       if arr
         etag = arr[1]
         data = arr[2]
         if arr != @etags.first
           @etags.delete(arr)
-          @etags.unshift( arr )
+          @etags.unshift(arr)
         end
       end
       return etag, data
     end
     
-    def save_etag( path, etag, data )
-      @etags.unshift( [path,etag,data] )
+    def save_etag(path, etag, data)
+      @etags.unshift([path,etag,data])
       @etags.pop if @etags.length > 99
     end
     
-    def update_etag( path, etag, data )
-      arr = @etags.assoc( path )
-      if arr
-        if arr == @etags.first
-          @etags[0] = [path,etag,data]
-        else
-          @etags.delete(arr)
-          @etags.unshift( [path,etag,data] )
-        end
+    def update_etag(path, etag, data)
+      arr = @etags.assoc(path)
+      if arr == @etags.first
+        @etags[0] = [path,etag,data]
       else
-        @etags.unshift( [path,etag,data] )
+        @etags.delete(arr)
+        @etags.unshift([path,etag,data])
       end
     end
 

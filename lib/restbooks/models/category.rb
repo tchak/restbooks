@@ -30,17 +30,17 @@ module RestBooks
       def initialize( element )
         if element
           @element = element
-          @element.elements.each do |tag|
+          @element.xpath('*').each do |tag|
             case tag.name
             when 'title'
-              @title = tag.text.strip()
-              @id = CGI.escape( @title )
+              @title = tag.text.strip
+              @id = CGI.escape(@title)
             when 'updated'
-              @updated = Date.parse( tag.text )
+              @updated = Date.parse(tag.text)
             end
           end
         else
-          @element = REXML::Element.new( 'entry' )
+          @element = Nokogiri::XML::Element.new('entry')
         end
       end
 

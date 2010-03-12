@@ -34,9 +34,9 @@ module RestBooks
     #     * death: author who dies in ...
     #     * lang: language of the author
     #     * order: normally from A to Z, use desc to reverse order
-    def all( options={} )
-      create_url( "/authors", options, ORDERED_AUTHOR_PARAMETERS )
-      return do_request( :author )
+    def all(options={})
+      create_url("/authors", options, ORDERED_AUTHOR_PARAMETERS)
+      return do_request(:author)
     end
 
     # Endpoint: /authors/top
@@ -48,9 +48,9 @@ module RestBooks
     #     * death: author who dies in ...
     #     * lang: language of the author
     #     * range: normally overall, week will display the most popular for the previous week and month for the last 4 weeks
-    def top( options={} )
-      create_url( "/authors/top", options, RANGED_AUTHOR_PARAMETERS )
-      return do_request( :author )
+    def top(options={})
+      create_url("/authors/top", options, RANGED_AUTHOR_PARAMETERS)
+      return do_request(:author)
     end
 
     # Endpoint: /authors/recent
@@ -61,9 +61,9 @@ module RestBooks
     #     * born: authors born in ...
     #     * death: author who dies in ...
     #     * lang: language of the author
-    def recent( options={} )
-      create_url( "/authors/recent", options, AUTHOR_PARAMETERS )
-      return do_request( :author )
+    def recent(options={})
+      create_url("/authors/recent", options, AUTHOR_PARAMETERS)
+      return do_request(:author)
     end
 
     # Endpoint: /author/:id/books

@@ -25,28 +25,28 @@ module RestBooks
   module Models
     class Author
       include RestBooks::Model
-      attr_reader :title, :id, :updated, :born, :death
+      attr_reader :name, :id, :updated, :born, :death
       
-      def initialize( element )
+      def initialize(element)
         if element
           @element = element
-          @element.elements.each do |tag|
+          @element.xpath('*').each do |tag|
             case tag.name
             when 'title'
               @title = tag.text
             when 'id'
-              @id = tag.text.split('/').last
+              @id = tag.text.scan(/author\/(\d+)\/books/).to_s
               @id = @id.split(':').last if @id.split(':').length > 1
             when 'updated'
               @updated = Date.parse( tag.text )
             when 'content'
-              dates = tag.text.strip.split(' - ')
+              dates = tag.text.strip.split(' ')
               @born = dates.first
               @death = dates.last
             end
           end
         else
-          @element = REXML::Element.new( 'entry' )
+          @element = Nokogiri::XML::Element.new('entry')
         end
       end
 
@@ -54,8 +54,8 @@ module RestBooks
         return { :title => @title,
           :id => @id,
           :updated => @updated,
-          :born => @date,
-          :death => @subject }
+          :born => @born,
+          :death => @death }
       end
 
     end

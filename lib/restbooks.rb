@@ -21,13 +21,18 @@
 #  along with RestBooks.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Gems
 require 'rubygems'
-require 'rest_client'
-require 'rexml/document'
+require 'restclient'
+require 'nokogiri'
+require 'json'
+
+# StdLib
 require 'cgi'
 require 'digest/md5'
-#require 'json'
+require 'date'
 
+# Lib
 require 'uri/uri'
 require 'restbooks/mixins/api'
 require 'restbooks/mixins/model'

@@ -32,10 +32,10 @@ module RestBooks
       return @element
     end
 
-    # def to_json
-    #   model = self.class.to_s.split('::').last.downcase.to_sym
-    #   return JSON.generate( { model => self.to_hash } )
-    # end
+    def to_json
+      model = self.class.to_s.split('::').last.downcase.to_sym
+      return JSON.generate( { model => self.to_hash } )
+    end
 
   end
 end

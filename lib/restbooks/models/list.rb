@@ -27,24 +27,24 @@ module RestBooks
       include RestBooks::Model
       attr_reader :title, :id, :updated, :description
       
-      def initialize( element )
+      def initialize(element)
         if element
           @element = element
-          @element.elements.each do |tag|
+          @element.xpath('*').each do |tag|
             case tag.name
             when 'title'
-              @title = tag.text.strip()
+              @title = tag.text.strip
             when 'id'
               @id = tag.text.split('/').last
               @id = @id.split(':').last if @id.split(':').length > 1
             when 'updated'
-              @updated = Date.parse( tag.text )
+              @updated = Date.parse(tag.text)
             when 'content'
-              @description = tag.text.strip()
+              @description = tag.text.strip
             end
           end
         else
-          @element = REXML::Element.new( 'entry' )
+          @element = Nokogiri::XML::Element.new('entry')
         end
       end
 

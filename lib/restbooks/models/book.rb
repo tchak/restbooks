@@ -27,12 +27,12 @@ module RestBooks
       include RestBooks::Model
       attr_reader :title, :id, :author, :updated, :language, :date, :subject, :description, :rights
       
-      def initialize( element=nil )
+      def initialize(element=nil)
         @updated = Time.now
         @subject = []
         if element
           @element = element
-          @element.elements.each do |tag|
+          @element.xpath('*').each do |tag|
             case tag.name
             when 'title'
               @title = tag.text
@@ -40,10 +40,10 @@ module RestBooks
               @id = tag.text.split('/').last
               @id = @id.split(':').last if @id.split(':').length > 1
             when 'updated'
-              @updated = Date.parse( tag.text )
+              @updated = Date.parse(tag.text)
             when 'author'
-              @author = tag.elements['name'].text
-              @author_id = tag.elements['uri'].text.split('/').last
+              @author = tag.xpath('name').text
+              @author_id = tag.xpath('uri').text.split('/').last
             when 'language' 
               @language = tag.text
             when 'date'
@@ -51,15 +51,15 @@ module RestBooks
             when 'subject'
               @subject << tag.text
             when 'description'
-              @description = tag.text.strip()
+              @description = tag.text.strip
             when 'rights'
               @rights = tag.text
             when 'content'
-              @html = tag.text if tag.attributes['type'] == "xhtml"  
+              @html = tag.text if tag['type'] == "xhtml"  
             end
           end
         else
-          @element = REXML::Element.new( 'entry' )
+          @element = Nokogiri::XML::Element.new('entry')
         end
       end
 
